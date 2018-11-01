@@ -1,0 +1,384 @@
+#include "Matrix.h"
+#include <iostream>
+#include <iomanip>
+#include <cassert>
+using namespace std;
+Matrix::Matrix()
+{
+    row = 0;
+    col = 0;
+}
+Matrix::Matrix(int r,int c)
+{
+    row = r;
+    col = c;
+}
+// Ostream Function that cprinted output  functions in the consol 
+// Made By Yageen 
+ostream & operator << (ostream &out, const Matrix &mat)
+{
+    for(int i = 0 ; i < mat.row ; i++)
+    {
+        out << "\n";
+        for(int j = 0 ; j < mat.col ; j++)
+        {
+            out << setw (4) << mat.data[i][j] << "  ";
+        }
+    }
+    cout<<endl;
+    return out;
+}
+// Istream function that allowes user to input data 
+// Made by Malaz
+istream & operator >> (istream &in, Matrix &mat)
+{
+    cout << "Please enter rows and columns : ";
+    in >> mat.row >> mat.col;
+    mat.data = new int* [mat.row];
+
+    for (int i = 0; i < mat.row; i++)
+    {
+        mat.data[i] = new int [mat.col];
+    }
+
+    for(int i = 0 ; i < mat.row ; i++)
+    {
+        cout << "\nPlease enter data for row " << i << ": ";
+        for(int j = 0 ; j < mat.col ; j++)
+        {
+            in >> mat.data[i][j];
+        }
+    }
+    cout<<endl;
+    return in;
+}
+// Oparetor + that add two matrixs toghter and return the output in new matrix 
+// Made By Sara 
+Matrix & operator + (Matrix mat1, Matrix mat2)
+{
+    assert ((mat1.row == mat2.row )&&( mat1.col == mat2.col));
+    Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat1.col;
+    Mat->data = new int* [mat1.row];
+
+    for (int i = 0; i < mat1.row; i++)
+    {
+        Mat->data[i] = new int [mat1.col];
+    }
+
+    for(int i = 0 ; i < mat1.row ; i++)
+    {
+        for(int j = 0 ; j < mat1.col ; j++)
+        {
+            Mat->data[i][j]=mat1.data[i][j]+mat2.data[i][j];
+        }
+    }
+    return *Mat;
+}
+// Oparetor - that substruct two matrixs from each other and return the output in new matrix 
+// Made By Sara 
+Matrix & operator - (Matrix mat1, Matrix mat2)
+{
+    assert ((mat1.row == mat2.row )&&( mat1.col == mat2.col));
+    Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat1.col;
+    Mat->data = new int* [mat1.row];
+
+    for (int i = 0; i < mat1.row; i++)
+    {
+        Mat->data[i] = new int [mat1.col];
+    }
+
+    for(int i = 0 ; i < mat1.row ; i++)
+    {
+        for(int j = 0 ; j < mat1.col ; j++)
+        {
+            Mat->data[i][j]=mat1.data[i][j]-mat2.data[i][j];
+        }
+    }
+    return *Mat;
+}
+// Oparetor * that multiplye two matrixs toghter and return the output in new matrix 
+// Made By Sara 
+Matrix & operator*  (Matrix mat1, Matrix mat2)
+{
+    assert( mat1.col == mat2.row );
+    int sum=0;
+    Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat2.col;
+    Mat->data = new int* [mat1.row*mat2.col];
+
+    for (int i = 0; i < mat1.row; i++)
+    {
+        Mat->data[i] = new int [mat1.col];
+    }
+
+    for (int i=0; i<mat1.row ; i++)
+    {
+        for(int j=0; j<mat2.col; j++)
+        {
+            for(int k=0; k<mat1.col; k++)
+            {
+                sum = sum + ( mat1.data[i][k])*(mat2.data[k][j]);
+            }
+            Mat->data[i][j]=sum;
+            sum=0;
+        }
+    }
+    return *Mat ;
+}
+// Oparetor + that add one matrixs to spasifice num called (scaler) and return the output in new matrix 
+// Made By Sara 
+Matrix & operator+ (Matrix mat1, int scalar)
+{
+    Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat1.col;
+    Mat->data = new int* [mat1.row];
+
+    for (int i = 0; i < mat1.row; i++)
+    {
+        Mat->data[i] = new int [mat1.col];
+    }
+
+    for(int i = 0 ; i < mat1.row ; i++)
+    {
+        for(int j = 0 ; j < mat1.col ; j++)
+        {
+            Mat->data[i][j]=mat1.data[i][j]+scalar;
+        }
+    }
+    return *Mat;
+}
+// Oparetor - that sbustrct one  matrixs from spasifice num called (scaler ) and return the output in new matrix 
+// Made By Sara 
+Matrix & operator- (Matrix mat1, int scalar)
+{
+    Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat1.col;
+    Mat->data = new int* [mat1.row];
+
+    for (int i = 0; i < mat1.row; i++)
+    {
+        Mat->data[i] = new int [mat1.col];
+    }
+
+    for(int i = 0 ; i < mat1.row ; i++)
+    {
+        for(int j = 0 ; j < mat1.col ; j++)
+        {
+            Mat->data[i][j]=mat1.data[i][j]-scalar;
+        }
+    }
+    return *Mat;
+}
+// Oparetor * that multipling one matrixs by spacifice num called (scaler ) and return the output in new matrix 
+// Made By Sara 
+Matrix & operator* (Matrix mat1, int scalar)
+{
+    Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat1.col;
+    Mat->data = new int* [mat1.row];
+
+    for (int i = 0; i < mat1.row; i++)
+    {
+        Mat->data[i] = new int [mat1.col];
+    }
+
+    for(int i = 0 ; i < mat1.row ; i++)
+    {
+        for(int j = 0 ; j < mat1.col ; j++)
+        {
+            Mat->data[i][j]=mat1.data[i][j]*scalar;
+        }
+    }
+    return *Mat;
+}
+// Oparetor == that compare between two matrixs and know them it's equal or not
+// If it's equal return true (1) ... not equal return false (0)
+// Made By Yageen 
+bool   operator== (Matrix mat1, Matrix mat2){
+
+     assert((mat1.col* mat1.row) == (mat2.col*mat2.row )) ;
+  	  int t= mat1.row ;
+	   int c= mat1.col ;
+  	     for (int i=0; i<t ; i++)
+		{
+  	  	     for (int j=0 ; j < c ; j++)
+			{
+  	  		  if ( mat1.data[i][j] == mat2.data[i][j] )
+  	  		  {
+  	  		  	return true;
+			  }
+			  else {
+			  	return false ;
+			  	break ;
+			  }
+			}
+        }
+}
+// Oparetor != that compare between two matrixs and know them it's not equal or not
+// If it's not equal return true (1) ...  equal return false (0)
+// Made By Yageen 
+bool   operator!= (Matrix mat1, Matrix mat2)
+{
+     assert ((mat1.col*mat1.row) == (mat2.col*mat2.row )) ;
+  	  int t=mat1.row ;
+	  int c= mat1.col ;
+  	     for (int i=0; i<t ; i++)
+		{
+  	  	     for (int j=0 ; j <c ; j++)
+			{
+  	  		  if ( mat1.data[i][j] != mat2.data[i][j] )
+  	  		  {
+  	  		  	return true;
+			  }
+			  else {
+			  	return false ;
+			  	break ;
+			  }
+			}
+		}
+}
+// shows the  matrixs and know  it's identity or not
+// If it's identity return true (1) ... not identity return false (0)
+// Made By Yageen 
+bool   isIdentity (Matrix mat1){
+	 if (mat1.row == mat1.col) {
+
+	for (int i=0; i<mat1.row; i++) {
+		for (int j =0 ; j<mat1.col ; j++) {
+			if((i==j ) && (mat1.data[i][j] ||(i!=j) && (mat1.data[i][j != 0]) )){
+				return true ;
+			}
+			else {
+				return false ;
+			}
+		}
+	}
+    }
+	 else {
+	 	return false ;
+	 }
+
+}
+// shows the  matrixs and know it's transpose 
+//  it's return the transpose of the matrix 
+// Made By Yageen 
+Matrix transpose(Matrix mat1 ){
+
+	assert ( mat1.row == mat1.col) ;
+
+	Matrix* mat=new Matrix ;
+    mat->row = mat1.row ;
+	mat->col = mat1.col;
+	mat->data = new int* [mat1.row] ;
+
+	for (int i = 0; i < mat1.row; i++){
+    mat->data[i] = new int [mat1.col];}
+
+	  for (int i=0; i<mat1.col ; i++) {
+	  	for (int j=0 ;j < mat1.col ; j++) {
+	  		mat->data[i][j]=mat1.data[j][i];
+		  }
+	  }return *mat ;
+}
+// shows the  matrixs and know  it's squar or not
+// If it's squar return true (1) ... not squar return false (0)
+// Made By Yageen 
+bool   isSquare   (Matrix mat1){
+	 assert (mat1.row == mat1.col) ;
+
+	   for (int i=0 ; i <mat1.row ;  i++) {
+	   	  for (int j =0; j <mat1.col ;j++) {
+	   	  	  if (mat1.row == mat1.col ) {
+	   	  	  	   return true ;
+				   }
+			 }
+	   }
+}
+// shows the  matrixs and know  it's symetric or not
+// If it's symetric return true (1) ... not symetric return false (0)
+// Made By Yageen 
+bool   isSymetric (Matrix mat1){
+	Matrix mat ;
+	if(isSquare(mat1)){
+            for(int i=0;i<mat1.row;i++)
+            {
+                for(int j=0;j<mat1.col;j++)
+                {
+                    if((mat1.data[j][i]==mat1.data[i][j])&&(i==j))
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+	}
+	else{return false;}
+}
+// Oparetor += that add one matrixs to spasifice num called (scaler) and return the output in the same matrix 
+// Made By Malaz 
+Matrix operator+=  (Matrix mat1, int scalar){
+	 Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat1.col;
+    Mat->data = new int* [mat1.row];
+
+    for (int i = 0; i < mat1.row; i++){
+    Mat->data[i] = new int [mat1.col];}
+
+    for(int i = 0 ; i < mat1.row ; i++){
+        for(int j = 0 ; j < mat1.col ; j++){
+    Mat->data[i][j]=mat1.data[i][j]+=scalar;}}
+    return *Mat;
+}
+// Oparetor += that add two matrixs toghter and return the output in the same matrix 
+// Made By Malaz 
+Matrix operator+=  (Matrix mat1, Matrix mat2){
+	assert ((mat1.row == mat2.row )&&( mat1.col == mat2.col));
+    Matrix* Mat = new Matrix;
+    Mat->row = mat1.row;
+    Mat->col = mat1.col;
+    Mat->data = new int* [mat1.row];
+
+    for (int i = 0; i < mat1.row; i++){
+    Mat->data[i] = new int [mat1.col];}
+
+     for(int i = 0 ; i < mat1.row ; i++){
+        for(int j = 0 ; j < mat1.col ; j++){
+    Mat->data[i][j]=mat1.data[i][j]+=mat2.data[i][j];}}
+    return *Mat;
+}
+/*
+// Oparetor ++ that add one to any element of the matrix 
+// Made By Malaz
+void   operator++ (Matrix& mat1)
+{
+     for (int i = 0; i < mat1.row; i++){
+            for(int j=0;j<mat1.col;j++){
+               mat1.data[i][j]++ ;
+    }
+}
+}
+
+// Oparetor -- that substruct one from any element of the matrix
+// Made By Malaz 
+void   operator-- (Matrix& mat1)
+{
+
+     for (int i = 0; i < mat1.row; i++){
+            for(int j=0;j<mat1.col;j++){
+             mat1.data[i][j]--;
+         }
+     }
+}
+*/

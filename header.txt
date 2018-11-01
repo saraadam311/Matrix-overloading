@@ -1,0 +1,42 @@
+
+#ifndef MATRIX_H
+#define MATRIX_H
+
+#include <iostream>
+#include <iomanip>
+#include <cassert>
+
+using namespace std;
+
+class Matrix
+{
+private:
+    int row;
+    int col;
+    int** data;
+public:
+    Matrix();
+    Matrix(int r, int c);
+    friend ostream & operator<<(ostream &out, const Matrix& mat);
+    friend istream& operator>>(istream &in, Matrix& mat);
+    friend Matrix  & operator +  (Matrix mat1, Matrix mat2);
+    friend Matrix  & operator -  (Matrix mat1, Matrix mat2);
+    friend Matrix  & operator *  (Matrix mat1, Matrix mat2);
+    friend Matrix  & operator +  (Matrix mat1, int scalar);
+    friend Matrix  & operator -  (Matrix mat1, int scalar);
+    friend Matrix  & operator *  (Matrix mat1, int scalar);
+    friend bool   operator== (Matrix mat1, Matrix mat2);	
+    friend bool   operator!= (Matrix mat1, Matrix mat2); 	
+    friend bool   isSquare   (Matrix mat1);  
+    friend bool   isSymetric (Matrix mat1);  
+    friend bool   isIdentity (Matrix mat1);   
+    friend Matrix transpose(Matrix mat1 );  
+	friend Matrix operator+=  (Matrix mat1, int scalar);
+    friend Matrix operator+=  (Matrix mat1, Matrix mat2);
+    friend void   operator++ (Matrix& mat1); 
+	friend void   operator-- (Matrix& mat1);
+  
+
+};
+
+#endif // MATRIX_H

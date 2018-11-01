@@ -1,0 +1,54 @@
+/* Auther :  Sara Zakaria Adam           // 20170382 
+             Yageen Mohammed Yahia      // 20170419
+             Malaz Salah ABdulrahman   // 20170415
+             
+    Purpus : Doing Some Calculating On Matrixes .
+*/
+#include <iostream>
+#include <iomanip>
+#include <cassert>
+#include "Matrix.h"
+using namespace std;
+
+int main()
+{
+
+    Matrix mat1,mat2;
+    cin>>mat1>>mat2;
+    cout<<"Mat1 is"<<endl<<mat1<<endl<<"Mat2 is"<<endl<<mat2<<endl;
+    cout<<"Mat1 + Mat2"<<endl<<mat1+mat2<<endl;
+    cout<<"Mat1 - Mat2"<<endl<<mat1-mat2<<endl;
+    cout<<"Mat1 * Mat2"<<endl<<mat1*mat2<<endl;
+    int scal;
+    cout<<"Enter the scalar : ";
+    cin>>scal;
+    cout<<endl;
+    cout<<"Mat1 + "<<scal<<endl;
+    cout<<mat1+scal<<endl;
+    cout<<"Mat1 - "<<scal<<endl;
+    cout<<mat1-scal<<endl;
+    cout<<"Mat1 * "<<scal<<endl;
+    cout<<mat1*scal<<endl;
+    cout<<"Mat2 + "<<scal<<endl;
+    cout<<mat2+scal<<endl;
+    cout<<"Mat2 - "<<scal<<endl;
+    cout<<mat2-scal<<endl;
+    cout<<"Mat2 * "<<scal<<endl;
+    cout<<mat2*scal<<endl;
+    cout << "Mat1 == Mat2  " << endl ;
+	cout << (mat1 == mat2) << endl ;
+    cout << "Mat1 != Mat2  " << endl ;
+	cout << (mat1 != mat2 ) << endl ;
+    cout << "mat1 is identity "<< endl ;
+	cout << isIdentity(mat1) << endl;
+    cout << "The transpose of mat1 "<< endl ;
+	cout << transpose(mat1) << endl ;
+    cout << "The square of mat1  "<< endl ;
+	cout << isSquare(mat1) << endl ;
+    cout << "The symmetric of mat1 "<< endl ;
+	cout << isSymetric (mat1) << endl ;
+    cout << "Mat1 += Scalar " << endl ;
+	cout << (mat1+= scal) << endl;
+    cout << "Mat1 += Mat2 :" << endl;
+	cout  << (mat1+=mat2) << endl;
+}
